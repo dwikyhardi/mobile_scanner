@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' as meta;
 import 'package:mobile_scanner/src/enums/barcode_format.dart';
 import 'package:mobile_scanner/src/enums/camera_facing.dart';
 import 'package:mobile_scanner/src/enums/detection_speed.dart';
@@ -568,7 +568,7 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
   ///
   /// This method is called by `_MobileScannerState.initState()`
   /// and is not intended to be used directly.
-  @internal
+  @meta.internal
   void attach() {
     if (_isAttachedCompleter.isCompleted) {
       return;
@@ -580,8 +580,6 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
   /// Exposes the [addBarcode] method.
   ///
   /// This method is used for adding a barcode to the barcode stream.
-  /// so when using [analyzeImage] the return value
-  /// can be used in [MobileScanner] using [onDetect] callback.
   void addBarcode(BarcodeCapture? barcode) {
     if (_barcodesController.isClosed || barcode == null) {
       return;
