@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:mobile_scanner/src/enums/barcode_format.dart';
+import 'package:mobile_scanner/src/enums/camera_lens_type.dart';
 import 'package:mobile_scanner/src/enums/torch_state.dart';
 import 'package:mobile_scanner/src/method_channel/mobile_scanner_method_channel.dart';
 import 'package:mobile_scanner/src/mobile_scanner_view_attributes.dart';
@@ -83,6 +84,14 @@ abstract class MobileScannerPlatform extends PlatformInterface {
     throw UnimplementedError('setZoomScale() has not been implemented.');
   }
 
+  /// Set the focus position for the camera.
+  ///
+  /// The provided point should be in the range `(0,0) - (1,1)`, both inclusive,
+  /// where `(0,0)` is the top left and `(1,1)` is the bottom right.
+  Future<void> setFocusPoint(Offset position) {
+    throw UnimplementedError('setFocusPoint() has not been implemented.');
+  }
+
   /// Start the barcode scanner and prepare a scanner view.
   ///
   /// Upon calling this method, the necessary camera permission will be
@@ -107,6 +116,20 @@ abstract class MobileScannerPlatform extends PlatformInterface {
   /// Toggle the torch on the active camera on or off.
   Future<void> toggleTorch() {
     throw UnimplementedError('toggleTorch() has not been implemented.');
+  }
+
+  /// Get the set of supported camera lens types for the current device.
+  ///
+  /// Returns a set of [CameraLensType] values that are available on the
+  /// device.
+  ///
+  /// Returns an empty set if the device has no cameras. On platforms
+  /// that do not support querying specific lens types, returns a set
+  /// containing only [CameraLensType.any] if cameras are available.
+  ///
+  /// This method can be called before starting the scanner.
+  Future<Set<CameraLensType>> getSupportedLenses() {
+    throw UnimplementedError('getSupportedLenses() has not been implemented.');
   }
 
   /// Update the scan window to the given [window] rectangle.
