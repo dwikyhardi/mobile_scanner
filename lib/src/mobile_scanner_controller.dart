@@ -6,8 +6,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-// ignore: unnecessary_import needed for older Flutter sdk's
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' as meta;
 import 'package:mobile_scanner/src/enums/barcode_format.dart';
 import 'package:mobile_scanner/src/enums/camera_facing.dart';
 import 'package:mobile_scanner/src/enums/camera_lens_type.dart';
@@ -851,12 +850,21 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
   ///
   /// This method is called by `_MobileScannerState.initState()`
   /// and is not intended to be used directly.
-  @internal
+  @meta.internal
   void attach() {
     if (_isAttachedCompleter.isCompleted) {
       return;
     }
 
     _isAttachedCompleter.complete();
+  }
+
+  /// Publishes gallery scan results for Monit's QRISController.
+  void addBarcode(BarcodeCapture? barcode) {
+    if (_barcodesController.isClosed || barcode == null) {
+      return;
+    }
+
+    _barcodesController.add(barcode);
   }
 }
