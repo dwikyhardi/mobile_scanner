@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased (Monit fork)
+
+* Rebase fork patches onto upstream develop `676312ed` (7.5.0 plus fixes).
+* Retain `MobileScannerController.addBarcode` for QRIS gallery results.
+* Migrate Material UI imports to `material_ui 1.11.1`; require Dart 3.13 and
+  Flutter 3.47 or newer, with development pinned to Flutter 3.50.0 through FVM.
+
 ## [7.5.0](https://github.com/juliansteenbakker/mobile_scanner/compare/v7.4.4...v7.5.0) (2026-11-01)
 
 

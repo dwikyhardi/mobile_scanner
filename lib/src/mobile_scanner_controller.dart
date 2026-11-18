@@ -38,8 +38,9 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
     this.invertImage = false,
     this.autoZoom = false,
     this.initialZoom,
-  }) : detectionTimeoutMs =
-           detectionSpeed == DetectionSpeed.normal ? detectionTimeoutMs : 0,
+  }) : detectionTimeoutMs = detectionSpeed == DetectionSpeed.normal
+           ? detectionTimeoutMs
+           : 0,
        assert(
          detectionTimeoutMs >= 0,
          'The detection timeout must be greater than or equal to 0.',
@@ -356,10 +357,9 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
     // If the device does not have a torch, do not report "off".
     value = value.copyWith(
       isRunning: false,
-      torchState:
-          oldTorchState == TorchState.unavailable
-              ? TorchState.unavailable
-              : TorchState.off,
+      torchState: oldTorchState == TorchState.unavailable
+          ? TorchState.unavailable
+          : TorchState.off,
     );
     return true;
   }
@@ -746,8 +746,9 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
     );
 
     // Filter out 'any' and keep only specific lens types.
-    final specificLenses =
-        supportedLenses.where((lens) => lens != CameraLensType.any).toList();
+    final specificLenses = supportedLenses
+        .where((lens) => lens != CameraLensType.any)
+        .toList();
 
     // Do nothing if there are less than 2 lens types available.
     if (specificLenses.length < 2) {
@@ -763,10 +764,9 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
 
     // Find the current lens type from state (default to normal if unknown).
     final stateLensType = value.cameraLensType;
-    final currentLens =
-        stateLensType == CameraLensType.any
-            ? CameraLensType.normal
-            : stateLensType;
+    final currentLens = stateLensType == CameraLensType.any
+        ? CameraLensType.normal
+        : stateLensType;
 
     // Find the next available lens in the cycle.
     final currentIndex = lensCycle.indexOf(currentLens);
@@ -992,6 +992,9 @@ class MobileScannerController extends ValueNotifier<MobileScannerState> {
   }
 
   /// Publishes gallery scan results for Monit's QRISController.
+  ///
+  /// Notifies [barcodes] listeners and [MobileScanner.onDetect] without
+  /// starting the camera. Null results and calls after disposal are ignored.
   void addBarcode(BarcodeCapture? barcode) {
     if (_barcodesController.isClosed || barcode == null) {
       return;

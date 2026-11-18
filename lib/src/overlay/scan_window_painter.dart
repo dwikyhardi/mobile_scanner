@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// This class represents a [CustomPainter] that draws a [scanWindow] rectangle.
 class ScanWindowPainter extends CustomPainter {
@@ -45,24 +45,22 @@ class ScanWindowPainter extends CustomPainter {
     }
 
     // The cutout rect depends on the border radius.
-    final cutoutRect =
-        borderRadius == BorderRadius.zero
-            ? RRect.fromRectAndCorners(scanWindow)
-            : RRect.fromRectAndCorners(
-              scanWindow,
-              topLeft: borderRadius.topLeft,
-              topRight: borderRadius.topRight,
-              bottomLeft: borderRadius.bottomLeft,
-              bottomRight: borderRadius.bottomRight,
-            );
+    final cutoutRect = borderRadius == BorderRadius.zero
+        ? RRect.fromRectAndCorners(scanWindow)
+        : RRect.fromRectAndCorners(
+            scanWindow,
+            topLeft: borderRadius.topLeft,
+            topRight: borderRadius.topRight,
+            bottomLeft: borderRadius.bottomLeft,
+            bottomRight: borderRadius.bottomRight,
+          );
 
-    final borderPaint =
-        Paint()
-          ..color = borderColor
-          ..style = borderStyle
-          ..strokeWidth = borderWidth
-          ..strokeCap = borderStrokeCap
-          ..strokeJoin = borderStrokeJoin;
+    final borderPaint = Paint()
+      ..color = borderColor
+      ..style = borderStyle
+      ..strokeWidth = borderWidth
+      ..strokeCap = borderStrokeCap
+      ..strokeJoin = borderStrokeJoin;
 
     // Use a layer so that BlendMode.clear punches a transparent hole through
     // the dark overlay. This works correctly on all platforms including web,

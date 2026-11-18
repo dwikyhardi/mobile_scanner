@@ -1,7 +1,8 @@
 import 'dart:math' as math;
+
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mobile_scanner/src/utils/scan_window_utils.dart';
 
 /// Calculate the scaling ratios for width and height to fit the provided
@@ -82,8 +83,9 @@ class BarcodePainter extends CustomPainter {
         deviceOrientation == DeviceOrientation.landscapeLeft ||
         deviceOrientation == DeviceOrientation.landscapeRight;
 
-    final adjustedCameraPreviewSize =
-        isLandscape ? cameraPreviewSize.flipped : cameraPreviewSize;
+    final adjustedCameraPreviewSize = isLandscape
+        ? cameraPreviewSize.flipped
+        : cameraPreviewSize;
 
     final ratios = ScanWindowUtils.calculateBoxFitRatio(
       boxFit: boxFit,
@@ -110,11 +112,10 @@ class BarcodePainter extends CustomPainter {
     // Draw the rotated rectangle
     final path = Path()..addPolygon(adjustedOffset, true);
 
-    final paint =
-        Paint()
-          ..color = color
-          ..style = style
-          ..strokeWidth = strokeWidth;
+    final paint = Paint()
+      ..color = color
+      ..style = style
+      ..strokeWidth = strokeWidth;
 
     canvas.drawPath(path, paint);
 

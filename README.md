@@ -85,6 +85,12 @@ This returns:
 
 ## Installation
 
+This fork requires Dart 3.13+ and Flutter 3.47+ and uses
+`package:material_ui/material_ui.dart` for Material UI. Development is pinned to
+Flutter 3.50.0 through FVM (`fvm flutter pub get`, `fvm flutter test`).
+See [the fork migration notes](doc/MONIT-2031.md) for the upstream base and
+preserved QRIS API.
+
 Add the dependency in your `pubspec.yaml` file:
 
 ```
@@ -254,6 +260,11 @@ MobileScanner(
 ```
 
 ### Advanced
+
+This fork also exposes `controller.addBarcode(capture)` to publish the result of
+`await controller.analyzeImage(path)` to the `barcodes` stream and `onDetect`.
+It does not start the camera; null results and calls after disposal are ignored.
+Subscribe before publishing, as the stream is broadcast and does not replay.
 
 If you want more control over the scanner, you need to create a new `MobileScannerController` controller. The controller contains multiple parameters to adjust the scanner.
 ```dart
